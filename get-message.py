@@ -7,6 +7,17 @@ import json
 url = "https://sqs.us-east-1.amazonaws.com/440848399208/ybf3jw"
 sqs = boto3.client('sqs')
 
+def delete_message(handle):
+    try:
+        # Delete message from SQS queue
+        sqs.delete_message(
+            QueueUrl=url,
+            ReceiptHandle=handle
+        )
+        print("Message deleted")
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+
 
 messages_dict = {}
 
@@ -43,6 +54,8 @@ def get_message():
 
                 messages_dict.update(message)
 
+                delete_message(handle)
+
             # If there is no message in the queue, print a message and exit    
             else:
                 print("No message in the queue")
@@ -65,15 +78,6 @@ if __name__ == "__main__":
     get_message()
 
 # going to simply enable this after i check in with the professor
-"""
-def delete_message(handle):
-    try:
-        # Delete message from SQS queue
-        sqs.delete_message(
-            QueueUrl=url,
-            ReceiptHandle=handle
-        )
-        print("Message deleted")
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-        """
+
+
+        
