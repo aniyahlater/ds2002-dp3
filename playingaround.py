@@ -6,19 +6,8 @@ import json
 # Set up your SQS queue URL and boto3 client
 url = "https://sqs.us-east-1.amazonaws.com/440848399208/ybf3jw"
 sqs = boto3.client('sqs')
-"""
-def delete_message(handle):
-    try:
-        # Delete message from SQS queue
-        sqs.delete_message(
-            QueueUrl=url,
-            ReceiptHandle=handle
-        )
-        print("Message deleted")
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-        """
 
+# copying the get message code and rearranging so that it gets 10 messages w/o running it 10 separately times
 def get_message():
     message_amount = 10
     # going to attempt to apend the variables to a tuple
@@ -60,3 +49,5 @@ def get_message():
 # Trigger the function
 if __name__ == "__main__":
     get_message()
+
+# storing the message data now
